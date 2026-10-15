@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Sneaker Market Dashboard – Trending Sneakers, New Releases & Resale Prices</title>
+<meta name="description" content="Live StockX sneaker market dashboard: trending sneakers, new releases, highest resale premiums, best sellers and per-size prices.">
+<style>
+  :root { --bg:#f6f7f9; --card:#fff; --line:#e5e7eb; --text:#111827; --muted:#6b7280; --accent:#111827; --up:#16a34a; --down:#dc2626; --amber:#f59e0b; }
+  * { box-sizing:border-box; }
+  body { margin:0; font:14px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif; background:var(--bg); color:var(--text); }
+  header { background:#111827; color:#fff; padding:18px 28px; display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  header h1 { margin:0; font-size:19px; }
+  .demo { background:var(--amber); color:#111; font-weight:600; font-size:12px; padding:3px 8px; border-radius:6px; display:none; }
+  .bar { max-width:1240px; margin:18px auto 0; padding:0 20px; display:flex; gap:10px; flex-wrap:wrap; align-items:center; }
+  .tabs { display:flex; gap:6px; flex-wrap:wrap; }
+  .tabs button { border:1px solid var(--line); background:#fff; padding:8px 14px; border-radius:999px; cursor:pointer; font-weight:600; font-size:13px; }
+  .tabs button.on { background:var(--accent); color:#fff; border-color:var(--accent); }
+  select, input { padding:8px 10px; border:1px solid var(--line); border-radius:9px; background:#fff; font-size:13px; }
+  input { min-width:200px; }
+  .grid { max-width:1240px; margin:16px auto 40px; padding:0 20px; display:grid; gap:14px; grid-template-columns:repeat(auto-fill, minmax(220px, 1fr)); }
+  .card { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:12px; cursor:pointer; transition:box-shadow .15s; position:relative; }
+  .card:hover { box-shadow:0 6px 20px rgba(0,0,0,.08); }
+  .card img { width:100%; height:120px; object-fit:contain; background:#f4f5f7; border-radius:10px; }
+  .card h3 { font-size:13.5px; margin:10px 0 6px; line-height:1.3; min-height:35px; }
+  .rank { position:absolute; top:18px; left:18px; background:#111827; color:#fff; font-size:11px; font-weight:700; border-radius:6px; padding:2px 7px; }
+  .row { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
+  .row b { color:var(--text); font-size:15px; }
+  .up { color:var(--up); font-weight:700; } .down { color:var(--down); font-weight:700; }
+  .drawer { position:fixed; inset:0 0 0 auto; width:min(520px,100%); background:#fff; box-shadow:-10px 0 30px rgba(0,0,0,.15); transform:translateX(105%); transition:transform .2s; overflow:auto; padding:20px; z-index:5; }
+  .drawer.open { transform:none; }
+  .drawer h2 { margin:0 0 4px; font-size:18px; }
+  .close { float:right; border:0; background:#f3f4f6; border-radius:8px; padding:6px 10px; cursor:pointer; }
+  table { width:100%; border-collapse:collapse; margin-top:10px; font-variant-numeric:tabular-nums; }
+  th, td { padding:7px 8px; border-bottom:1px solid var(--line); text-align:right; }
+  th:first-child, td:first-child { text-align:left; }
+  th { font-size:11px; color:var(--muted); text-transform:uppercase; }
+  .cw { display:grid; grid-template-columns:repeat(3,1fr); gap:8px; margin-top:10px; }
+  .cw > div { border:1px solid var(--line); border-radius:10px; padding:6px; font-size:11px; }
+  .cw img { width:100%; height:50px; object-fit:contain; background:#f4f5f7; border-radius:6px; }
+  .empty { grid-column:1/-1; text-align:center; color:var(--muted); padding:60px; }
+  footer { text-align:center; color:var(--muted); font-size:12px; padding:10px 20px 30px; }
+  a { color:#2563eb; }
+</style>
+</head>
+<body>
+<header>
+  <h1>📈 Sneaker Market Dashboard</h1>
+  <span style="opacity:.7;font-size:12px">Live StockX data · trending, releases, resale premiums</span>
+  <span class="demo" id="demo">DEMO MODE – sample data</span>
+</header>
+
+<div class="bar">
+  <div class="tabs" id="tabs">
+    <button data-sort="most-active" class="on">🔥 Trending</button>
+    <button data-sort="release_date">🆕 New releases</button>
+    <button data-sort="price_premium">💰 Highest premium</button>
+    <button data-sort="deadstock_sold">🏆 Best sellers</button>
+    <button data-sort="lowest_ask">⬇️ Lowest ask</button>
+  </div>
+  <select id="category">
+    <option>sneakers</option><option>shoes</option><option>apparel</option><option>accessories</option>
+    <option>collectibles</option><option>trading-cards</option><option>electronics</option><option>watches</option>
+  </select>
+  <select id="currency"><option>USD</option><option>EUR</option><option>GBP</option><option>CAD</option><option>AUD</option><option>JPY</option></select>
+  <input id="q" placeholder="Filter, e.g. jordan 4">
+</div>
+
+<main class="grid" id="grid"><div class="empty">Loading…</div></main>
+<aside class="drawer" id="drawer"></aside>
+
+<footer>Data: <a href="https://rapidapi.com/belchiorarkad-FqvHs2EDOtP/api/sneaker-database-stockx" target="_blank" rel="noopener">Sneaker Database – StockX API</a> · Support: <a href="https://t.me/pintoflow" target="_blank" rel="noopener">Telegram @pintoflow</a> · Not affiliated with StockX.</footer>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const COUNTRY = { USD: 'US', EUR: 'DE', GBP: 'GB', CAD: 'CA', AUD: 'AU', JPY: 'JP' };
+const state = { sort: 'most-active' };
+const n = (v) => { if (v && typeof v === 'object') v = v.amount ?? v.price ?? v.value; const x = Number(v); return isFinite(x) && x > 0 ? x : null; };
+const money = (v) => { const x = n(v); if (x == null) return '–'; return new Intl.NumberFormat(undefined, { style: 'currency', currency: $('currency').value, maximumFractionDigits: 0 }).format(x); };
+const list = (d) => { d = d?.data ?? d; if (Array.isArray(d)) return d; for (const k of ['products', 'results', 'items', 'sizes', 'variants', 'colorways']) if (Array.isArray(d?.[k])) return d[k]; return []; };
+const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+async function api(route, params) {
+  const r = await fetch(`/api${route}?` + new URLSearchParams(params));
+  const j = await r.json().catch(() => ({}));
+  if (!r.ok || j.success === false) throw new Error(j.message || `Error ${r.status}`);
+  return j;
+}
+
+let timer;
+async function load() {
+  const grid = $('grid');
+  grid.innerHTML = '<div class="empty">Loading…</div>';
+  try {
+    const cur = $('currency').value;
+    const params = { category: $('category').value, sort: state.sort, limit: 40, currency: cur, country: COUNTRY[cur] };
+    if ($('q').value.trim()) params.query = $('q').value.trim();
+    const items = list(await api('/stockx/browse', params));
+    if (!items.length) return (grid.innerHTML = '<div class="empty">No products found.</div>');
+    grid.innerHTML = items.map((p, i) => {
+      const retail = n(p.retailPrice), ask = n(p.lowestAsk);
+      const prem = p.pricePremium != null ? Number(p.pricePremium) : retail && ask ? ((ask - retail) / retail) * 100 : null;
+      return `<div class="card" data-key="${esc(p.urlKey)}" data-title="${esc(p.title || p.name)}" data-img="${esc(p.image || p.thumbnail || '')}">
+        <span class="rank">#${i + 1}</span>
+        <img loading="lazy" src="${esc(p.image || p.thumbnail || '/sneaker.svg')}" alt="">
+        <h3>${esc(p.title || p.name)}</h3>
+        <div class="row"><span>Lowest ask</span><b>${money(ask)}</b></div>
+        <div class="row"><span>Last sale</span><span>${money(p.lastSale)}</span></div>
+        <div class="row"><span>vs retail</span><span class="${prem >= 0 ? 'up' : 'down'}">${prem == null ? '–' : (prem >= 0 ? '+' : '') + prem.toFixed(0) + '%'}</span></div>
+        ${p.salesLast72Hours != null ? `<div class="row"><span>Sales 72h</span><span>${p.salesLast72Hours}</span></div>` : ''}
+      </div>`;
+    }).join('');
+  } catch (e) { grid.innerHTML = `<div class="empty">${esc(e.message)}</div>`; }
+}
+
+async function openProduct(el) {
+  const d = $('drawer');
+  d.classList.add('open');
+  d.innerHTML = `<button class="close" onclick="drawer.classList.remove('open')">✕</button><h2>${esc(el.dataset.title)}</h2><p style="color:#6b7280">Loading sizes…</p>`;
+  const cur = $('currency').value, p = { urlKey: el.dataset.key, currency: cur, country: COUNTRY[cur] };
+  const [md, cw] = await Promise.allSettled([api('/stockx/market-data', p), api('/stockx/colorways', p)]);
+  const sizes = md.status === 'fulfilled' ? list(md.value) : [];
+  const colorways = cw.status === 'fulfilled' ? list(cw.value) : [];
+  d.innerHTML = `<button class="close" onclick="drawer.classList.remove('open')">✕</button>
+    <h2>${esc(el.dataset.title)}</h2>
+    <div style="color:#6b7280;font-size:12px">Per-size StockX market · ${cur}</div>
+    ${sizes.length ? `<table><tr><th>Size</th><th>Lowest ask</th><th>Highest bid</th><th>Last sale</th><th>Sales 72h</th></tr>
+      ${sizes.map((s) => `<tr><td>${esc(s.size ?? s.sizeUS ?? s.name)}</td><td><b>${money(s.lowestAsk)}</b></td><td>${money(s.highestBid)}</td><td>${money(s.lastSale)}</td><td>${s.salesLast72Hours ?? '–'}</td></tr>`).join('')}
+    </table>` : '<p>No size data right now.</p>'}
+    ${colorways.length ? `<h3 style="margin:18px 0 0;font-size:14px">Other colorways</h3><div class="cw">${colorways.slice(0, 9).map((c) =>
+      `<div><img src="${esc(c.image || c.thumbnail || '/sneaker.svg')}" alt=""><div>${esc(c.title || c.name)}</div><b>${money(c.lowestAsk)}</b></div>`).join('')}</div>` : ''}`;
+}
+
+$('tabs').addEventListener('click', (e) => {
+  const b = e.target.closest('button'); if (!b) return;
+  document.querySelectorAll('#tabs button').forEach((x) => x.classList.toggle('on', x === b));
+  state.sort = b.dataset.sort; load();
+});
+['category', 'currency'].forEach((id) => $(id).addEventListener('change', load));
+$('q').addEventListener('input', () => { clearTimeout(timer); timer = setTimeout(load, 400); });
+$('grid').addEventListener('click', (e) => { const c = e.target.closest('.card'); if (c) openProduct(c); });
+fetch('/api/config').then((r) => r.json()).then((c) => { if (c.demo) $('demo').style.display = 'inline-block'; });
+load();
+</script>
+</body>
+</html>
