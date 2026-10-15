@@ -1,0 +1,1 @@
+{ "name": "sneaker-market-dashboard", "version": "1.0.0", "description": "Trending sneakers, new releases and resale premiums from StockX", "main": "server.js", "scripts": { "start": "node server.js" }, "engines": { "node": ">=18" }, "keywords": ["stockx","sneakers","dashboard","trending","resale"], "license": "MIT" }

@@ -1,0 +1,259 @@
+{
+ "_note": "SAMPLE DATA for demo mode only. Products and prices are invented.",
+ "products": [
+  {
+   "urlKey": "demo-runner-one-white-black",
+   "title": "Demo Runner One 'White Black'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 180,
+   "lowestAsk": 417,
+   "lastSale": 410,
+   "pricePremium": 131.7,
+   "salesLast72Hours": 61,
+   "releaseDate": "2026-02-27"
+  },
+  {
+   "urlKey": "demo-court-classic-triple-black",
+   "title": "Demo Court Classic 'Triple Black'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 110,
+   "lowestAsk": 149,
+   "lastSale": 138,
+   "pricePremium": 35.5,
+   "salesLast72Hours": 531,
+   "releaseDate": "2026-04-02"
+  },
+  {
+   "urlKey": "demo-trail-pro-university-blue",
+   "title": "Demo Trail Pro 'University Blue'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 110,
+   "lowestAsk": 161,
+   "lastSale": 150,
+   "pricePremium": 46.4,
+   "salesLast72Hours": 104,
+   "releaseDate": "2026-09-14"
+  },
+  {
+   "urlKey": "demo-retro-high-sail-green",
+   "title": "Demo Retro High 'Sail Green'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 90,
+   "lowestAsk": 190,
+   "lastSale": 179,
+   "pricePremium": 111.1,
+   "salesLast72Hours": 240,
+   "releaseDate": "2026-10-02"
+  },
+  {
+   "urlKey": "demo-street-low-grey-fog",
+   "title": "Demo Street Low 'Grey Fog'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 200,
+   "lowestAsk": 166,
+   "lastSale": 159,
+   "pricePremium": -17.0,
+   "salesLast72Hours": 582,
+   "releaseDate": "2026-03-10"
+  },
+  {
+   "urlKey": "demo-cloud-glide-bred",
+   "title": "Demo Cloud Glide 'Bred'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 200,
+   "lowestAsk": 198,
+   "lastSale": 186,
+   "pricePremium": -1.0,
+   "salesLast72Hours": 327,
+   "releaseDate": "2026-09-27"
+  },
+  {
+   "urlKey": "demo-hoop-legend-sand-tan",
+   "title": "Demo Hoop Legend 'Sand Tan'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 120,
+   "lowestAsk": 110,
+   "lastSale": 111,
+   "pricePremium": -8.3,
+   "salesLast72Hours": 204,
+   "releaseDate": "2026-06-04"
+  },
+  {
+   "urlKey": "demo-skate-mid-volt-pink",
+   "title": "Demo Skate Mid 'Volt Pink'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 110,
+   "lowestAsk": 185,
+   "lastSale": 189,
+   "pricePremium": 68.2,
+   "salesLast72Hours": 520,
+   "releaseDate": "2026-09-14"
+  },
+  {
+   "urlKey": "demo-track-racer-navy-gum",
+   "title": "Demo Track Racer 'Navy Gum'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 180,
+   "lowestAsk": 273,
+   "lastSale": 291,
+   "pricePremium": 51.7,
+   "salesLast72Hours": 382,
+   "releaseDate": "2026-05-08"
+  },
+  {
+   "urlKey": "demo-canvas-lo-cream-red",
+   "title": "Demo Canvas Lo 'Cream Red'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 120,
+   "lowestAsk": 228,
+   "lastSale": 219,
+   "pricePremium": 90.0,
+   "salesLast72Hours": 600,
+   "releaseDate": "2026-05-17"
+  },
+  {
+   "urlKey": "demo-terrace-og-panda",
+   "title": "Demo Terrace Og 'Panda'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 230,
+   "lowestAsk": 505,
+   "lastSale": 524,
+   "pricePremium": 119.6,
+   "salesLast72Hours": 306,
+   "releaseDate": "2026-10-03"
+  },
+  {
+   "urlKey": "demo-boost-flow-olive",
+   "title": "Demo Boost Flow 'Olive'",
+   "brand": "Demo Brand",
+   "image": "/sneaker.svg",
+   "retailPrice": 110,
+   "lowestAsk": 175,
+   "lastSale": 166,
+   "pricePremium": 59.1,
+   "salesLast72Hours": 362,
+   "releaseDate": "2026-03-16"
+  }
+ ],
+ "sizes": [
+  {
+   "size": "7",
+   "lowestAsk": 163,
+   "highestBid": 156,
+   "lastSale": 172,
+   "numberOfAsks": 6,
+   "numberOfBids": 36,
+   "salesLast72Hours": 36
+  },
+  {
+   "size": "7.5",
+   "lowestAsk": 150,
+   "highestBid": 124,
+   "lastSale": 160,
+   "numberOfAsks": 24,
+   "numberOfBids": 39,
+   "salesLast72Hours": 31
+  },
+  {
+   "size": "8",
+   "lowestAsk": 184,
+   "highestBid": 150,
+   "lastSale": 174,
+   "numberOfAsks": 55,
+   "numberOfBids": 6,
+   "salesLast72Hours": 17
+  },
+  {
+   "size": "8.5",
+   "lowestAsk": 170,
+   "highestBid": 161,
+   "lastSale": 159,
+   "numberOfAsks": 48,
+   "numberOfBids": 20,
+   "salesLast72Hours": 36
+  },
+  {
+   "size": "9",
+   "lowestAsk": 167,
+   "highestBid": 144,
+   "lastSale": 177,
+   "numberOfAsks": 26,
+   "numberOfBids": 23,
+   "salesLast72Hours": 1
+  },
+  {
+   "size": "9.5",
+   "lowestAsk": 169,
+   "highestBid": 142,
+   "lastSale": 162,
+   "numberOfAsks": 41,
+   "numberOfBids": 8,
+   "salesLast72Hours": 31
+  },
+  {
+   "size": "10",
+   "lowestAsk": 117,
+   "highestBid": 99,
+   "lastSale": 114,
+   "numberOfAsks": 10,
+   "numberOfBids": 16,
+   "salesLast72Hours": 25
+  },
+  {
+   "size": "10.5",
+   "lowestAsk": 160,
+   "highestBid": 124,
+   "lastSale": 150,
+   "numberOfAsks": 12,
+   "numberOfBids": 29,
+   "salesLast72Hours": 25
+  },
+  {
+   "size": "11",
+   "lowestAsk": 180,
+   "highestBid": 158,
+   "lastSale": 172,
+   "numberOfAsks": 54,
+   "numberOfBids": 28,
+   "salesLast72Hours": 35
+  },
+  {
+   "size": "11.5",
+   "lowestAsk": 145,
+   "highestBid": 114,
+   "lastSale": 144,
+   "numberOfAsks": 45,
+   "numberOfBids": 25,
+   "salesLast72Hours": 14
+  },
+  {
+   "size": "12",
+   "lowestAsk": 129,
+   "highestBid": 119,
+   "lastSale": 122,
+   "numberOfAsks": 11,
+   "numberOfBids": 15,
+   "salesLast72Hours": 14
+  },
+  {
+   "size": "13",
+   "lowestAsk": 111,
+   "highestBid": 75,
+   "lastSale": 117,
+   "numberOfAsks": 13,
+   "numberOfBids": 17,
+   "salesLast72Hours": 18
+  }
+ ]
+}
